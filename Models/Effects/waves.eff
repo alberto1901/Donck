@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<!--
+  Swedish Navy 20m-class motor torpedo boat for FlightGear.
+
+  Copyright (C) 2013 - 2017  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+-->
+<PropertyList>
+
+ <name>Aircraft/Donck/Models/Effects/waves</name>
+ <inherits-from>Effects/model-default</inherits-from>
+
+ <parameters>
+
+  <wave-time-sec><use>environment/waves/time-sec</use></wave-time-sec> <!-- required to move waves in direction -->
+  <!--wave-angular-frequency-rad_sec><use>environment/waves/angular-frequency-rad_sec</use></wave-angular-frequency-rad_sec-->
+  <!--wave-number-rad_ft><use>environment/waves/wave-number-rad_ft</use></wave-number-rad_ft-->
+  <!--waves-from-deg><use>environment/waves/from-deg</use></waves-from-deg-->
+  <!--wave-amplitude-ft><use>environment/waves/amplitude-ft</use></wave-amplitude-ft-->
+
+<!--
+  <wave-frequency><use>environment/waves/frequency</use></wave-frequency>
+  <wave-length-ft><use>environment/waves/length-ft</use></wave-length-ft>
+  <wave-steepness><use>environment/waves/steepness</use></wave-steepness>
+-->
+
+  <wave0-direction><use>/fdm/jsbsim/hydro/environment/wave-from-degree</use></wave0-direction>
+  <wave0-amplitude-ft><use>environment/waves/amplitude-ft</use></wave0-amplitude-ft>
+  <!--wave0-amplitude-ft><use>/fdm/jsbsim/hydro/environment/wave-0-amplitude-ft</use></wave0-amplitude-ft -->
+  <wave0-steepness><use>/fdm/jsbsim/hydro/environment/wave-0-steepness</use></wave0-steepness>
+  <wave0-frequency><use>/fdm/jsbsim/hydro/environment/wave-0-frequency</use></wave0-frequency>
+  <wave0-speed><use>/fdm/jsbsim/hydro/environment/wave-0-speed</use></wave0-speed>
+  <wave0-direction-x><use>/fdm/jsbsim/hydro/environment/wave-0-direction-x</use></wave0-direction-x>
+  <wave0-direction-y><use>/fdm/jsbsim/hydro/environment/wave-0-direction-y</use></wave0-direction-y>
+
+  <wave1-direction><use>/fdm/jsbsim/hydro/environment/wave-1-from-degree</use></wave1-direction>
+  <wave1-amplitude-ft><use>/fdm/jsbsim/hydro/environment/wave-1-amplitude-ft</use></wave1-amplitude-ft>
+  <wave1-steepness><use>/fdm/jsbsim/hydro/environment/wave-1-steepness</use></wave1-steepness>
+  <wave1-frequency><use>/fdm/jsbsim/hydro/environment/wave-1-frequency</use></wave1-frequency>
+  <wave1-speed><use>/fdm/jsbsim/hydro/environment/wave-1-speed</use></wave1-speed>
+  <wave1-direction-x><use>/fdm/jsbsim/hydro/environment/wave-1-direction-x</use></wave1-direction-x>
+  <wave1-direction-y><use>/fdm/jsbsim/hydro/environment/wave-1-direction-y</use></wave1-direction-y>
+
+  <wave2-direction><use>/fdm/jsbsim/hydro/environment/wave-2-from-degree</use></wave2-direction>
+  <wave2-amplitude-ft><use>/fdm/jsbsim/hydro/environment/wave-2-amplitude-ft</use></wave2-amplitude-ft>
+  <wave2-steepness><use>/fdm/jsbsim/hydro/environment/wave-2-steepness</use></wave2-steepness>
+  <wave2-frequency><use>/fdm/jsbsim/hydro/environment/wave-2-frequency</use></wave2-frequency>
+  <wave2-speed><use>/fdm/jsbsim/hydro/environment/wave-2-speed</use></wave2-speed>
+  <wave2-direction-x><use>/fdm/jsbsim/hydro/environment/wave-2-direction-x</use></wave2-direction-x>
+  <wave2-direction-y><use>/fdm/jsbsim/hydro/environment/wave-2-direction-y</use></wave2-direction-y>
+
+  <wave3-direction><use>/fdm/jsbsim/hydro/environment/wave-3-from-degree</use></wave3-direction>
+  <wave3-amplitude-ft><use>/fdm/jsbsim/hydro/environment/wave-3-amplitude-ft</use></wave3-amplitude-ft>
+  <wave3-steepness><use>/fdm/jsbsim/hydro/environment/wave-3-steepness</use></wave3-steepness>
+  <wave3-frequency><use>/fdm/jsbsim/hydro/environment/wave-3-frequency</use></wave3-frequency>
+  <wave3-speed><use>/fdm/jsbsim/hydro/environment/wave-3-speed</use></wave3-speed>
+  <wave3-direction-x><use>/fdm/jsbsim/hydro/environment/wave-3-direction-x</use></wave3-direction-x>
+  <wave3-direction-y><use>/fdm/jsbsim/hydro/environment/wave-3-direction-y</use></wave3-direction-y>
+
+ </parameters>
+
+ <technique n="5"> <!-- Light field a.k.a atmospheric light scattering. -->
+
+  <predicate n="0">
+   <and n="0">
+    <property n="10">/sim/rendering/shaders/water</property>
+    <!--property n="10">Aircraft/Donck/Models/Effects/water</property-->
+   </and>
+  </predicate>
+
+  <pass n="0">
+
+   <program n="0">
+    <vertex-shader n="0">Aircraft/Donck/Models/Effects/gerstner-wave.vert</vertex-shader>
+    <fragment-shader>Aircraft/Donck/Models/Effects/gerstner-wave.frag</fragment-shader>
+   </program>
+
+
+   <uniform n="0">
+    <name>wave_time_sec</name>
+    <type>float</type>
+    <value type="float"><use>wave-time-sec</use></value>
+   </uniform>
+
+   <uniform n="1">
+    <name>waves_from_deg</name>
+    <type>float</type>
+    <value type="float"><use>waves-from-deg</use></value>
+   </uniform>
+
+   <!--uniform n="2">
+    <name>wave_amplitude_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave-amplitude-ft</use></value>
+   </uniform -->
+
+   <uniform n="3">
+    <name>wave_angular_frequency_rad_sec</name>
+    <type>float</type>
+    <value type="float"><use>wave-angular-frequency-rad_sec</use></value>
+   </uniform>
+
+   <uniform n="4">
+    <name>wave_number_rad_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave-number-rad_ft</use></value>
+   </uniform>
+<!--      -->
+
+<!-- WAVE AMPLITUDE -->
+   <uniform n="10">
+    <name>wave0_amplitude_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave0-amplitude-ft</use></value>
+   </uniform>
+
+   <uniform n="11">
+    <name>wave1_amplitude_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave1-amplitude-ft</use></value>
+   </uniform>
+
+   <uniform n="12">
+    <name>wave2_amplitude_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave2-amplitude-ft</use></value>
+   </uniform>
+
+   <uniform n="13">
+    <name>wave3_amplitude_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave3-amplitude-ft</use></value>
+   </uniform>
+
+
+<!-- WAVE FREQUENCY -->
+   <uniform n="20">
+    <name>wave0_frequency</name>
+    <type>float</type>
+    <value type="float"><use>wave0-frequency</use></value>
+   </uniform>
+
+   <uniform n="21">
+    <name>wave1_frequency</name>
+    <type>float</type>
+    <value type="float"><use>wave1-frequency</use></value>
+   </uniform>
+
+   <uniform n="22">
+    <name>wave2_frequency</name>
+    <type>float</type>
+    <value type="float"><use>wave2-frequency</use></value>
+   </uniform>
+
+   <uniform n="23">
+    <name>wave3_frequency</name>
+    <type>float</type>
+    <value type="float"><use>wave3-frequency</use></value>
+   </uniform>
+
+
+<!-- WAVE STEEPNESS -->
+   <uniform n="30">
+    <name>wave0_steepness</name>
+    <type>float</type>
+    <value type="float"><use>wave0-steepness</use></value>
+   </uniform>
+
+   <uniform n="31">
+    <name>wave1_steepness</name>
+    <type>float</type>
+    <value type="float"><use>wave1-steepness</use></value>
+   </uniform>
+
+   <uniform n="32">
+    <name>wave2_steepness</name>
+    <type>float</type>
+    <value type="float"><use>wave2-steepness</use></value>
+   </uniform>
+
+   <uniform n="33">
+    <name>wave3_steepness</name>
+    <type>float</type>
+    <value type="float"><use>wave3-steepness</use></value>
+   </uniform>
+
+
+<!-- WAVE SPEED -->
+   <uniform n="40">
+    <name>wave0_speed</name>
+    <type>float</type>
+    <value type="float"><use>wave0-speed</use></value>
+   </uniform>
+
+   <uniform n="41">
+    <name>wave1_speed</name>
+    <type>float</type>
+    <value type="float"><use>wave1-speed</use></value>
+   </uniform>
+
+   <uniform n="42">
+    <name>wave2_speed</name>
+    <type>float</type>
+    <value type="float"><use>wave2-speed</use></value>
+   </uniform>
+
+   <uniform n="43">
+    <name>wave3_speed</name>
+    <type>float</type>
+    <value type="float"><use>wave3-speed</use></value>
+   </uniform>
+
+<!-- WAVE DIRECTION X Y -->
+   <uniform n="50">
+    <name>wave0_direction_x</name>
+    <type>float</type>
+    <value type="float"><use>wave0-direction-x</use></value>
+   </uniform>
+   <uniform n="51">
+    <name>wave0_direction_y</name>
+    <type>float</type>
+    <value type="float"><use>wave0-direction-y</use></value>
+   </uniform>
+
+   <uniform n="52">
+    <name>wave1_direction_x</name>
+    <type>float</type>
+    <value type="float"><use>wave1-direction-x</use></value>
+   </uniform>
+   <uniform n="53">
+    <name>wave1_direction_y</name>
+    <type>float</type>
+    <value type="float"><use>wave1-direction-y</use></value>
+   </uniform>
+
+   <uniform n="54">
+    <name>wave2_direction_x</name>
+    <type>float</type>
+    <value type="float"><use>wave2-direction-x</use></value>
+   </uniform>
+   <uniform n="55">
+    <name>wave2_direction_y</name>
+    <type>float</type>
+    <value type="float"><use>wave2-direction-y</use></value>
+   </uniform>
+
+   <uniform n="56">
+    <name>wave3_direction_x</name>
+    <type>float</type>
+    <value type="float"><use>wave3-direction-x</use></value>
+   </uniform>
+   <uniform n="57">
+    <name>wave3_direction_y</name>
+    <type>float</type>
+    <value type="float"><use>wave3-direction-y</use></value>
+   </uniform>
+
+  </pass>
+
+ </technique>
+
+ <!-- Standard. FIXME: Not implemented yet. -->
+
+<!--
+ <technique n="11">
+  <predicate n="0">
+   <and n="0">
+    <property n="10">/sim/rendering/shaders/water</property>
+   </and>
+  </predicate>
+
+  <pass n="0">
+   <program n="0">
+    <vertex-shader n="1">Aircraft/Donck/Models/Effects/water-lightfield.vert</vertex-shader>
+   </program>
+   <uniform n="1">
+    <name>wave_time_sec</name>
+    <type>float</type>
+    <value type="float"><use>wave-time-sec</use></value>
+   </uniform>
+   <uniform n="2">
+    <name>waves_from_deg</name>
+    <type>float</type>
+    <value type="float"><use>waves-from-deg</use></value>
+   </uniform>
+   <uniform n="3">
+    <name>wave_amplitude_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave-amplitude-ft</use></value>
+   </uniform>
+   <uniform n="4">
+    <name>wave_angular_frequency_rad_sec</name>
+    <type>float</type>
+    <value type="float"><use>wave-angular-frequency-rad_sec</use></value>
+   </uniform>
+   <uniform n="5">
+    <name>wave_number_rad_ft</name>
+    <type>float</type>
+    <value type="float"><use>wave-number-rad_ft</use></value>
+   </uniform>
+
+   </pass>
+ </technique>
+-->
+</PropertyList>
