@@ -4,7 +4,19 @@ This is an attempt to recreate a Dutch statenjacht *Adriaen van der Donck* in Fl
 
 ## Current State
 
-This project is another sandbox for me to learn the ins-and-outs of Flightgear development and play in the virtual water. Don't expect a professional level experience!
+This project is another sandbox for me to learn the ins-and-outs of Flightgear development and play in the virtual water. Don't expect a professional level experience! The *Adriaen van der Donck* serves two purposes: 1) to further develop different types of sails (square sails *vs.* fore-and-aft); 2) to experiment with various shaders to import more realistic representation of local waves.
+
+The project is a work in progress and not under active development.
+
+The current state includes a 'Gerstner' wave vertex shader which animates a localized water grid. Up to 4 separate waves can be defined by setting direction, amplitude, frequency, steepness and speed for each wave. These parameters can be set through a Canvas GUI by pressing cntl-w. The waves are visible only if amplitude is greater than zero and they are best observed in wire-frame mode. Note that further development of the shader is needed. This is particularly apparent when a wave reaches an amplitude/steepness where--in the physical world--the wave would break.
+
+Other work to be done includes:
+
+1) Re-implement the boat's motion in accordance with the waves. This is currently broken and the Donck does not react to any waves;
+
+2) Implement a fragment shader to give the waves the appearance of water. Currently, there is a place-holder shader which simply creates a blue to white color gradation based on amplitude;
+
+3) A method to assign transparency to (or rendering order of) the default FlightGear water surface needs to be developed. Currently, the flat default FGFS water bisects the animated water obscuring the 'valleys' of the animated waves.
 
 To install the *Donck* simply unzip the files into your FGFS aircraft directory. Rename the uncompressed folder by removing the '-main' from the folder name. E.g., the folder should be named 'Donck' not 'Donck-main'. Remember to start in the water. Starting FlightGear with parameters:
 
